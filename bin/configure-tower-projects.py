@@ -536,7 +536,6 @@ class TowerWorkspace:
                 "provider": "aws",
                 "keys": {
                     "accessKey": credentials["aws_access_key_id"],
-                    # "secretKey": credentials["aws_secret_access_key"],
                     "assumeRoleArn": self.stack["TowerRoleArn"],
                 },
                 "description": f"Credentials for {self.stack_name}",
