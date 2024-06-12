@@ -288,7 +288,6 @@ Resources:
             - !GetAtt TowerForgeBatchHeadJobRole.Arn
             - !GetAtt TowerForgeBatchWorkJobRole.Arn
             - !GetAtt TowerForgeServiceRole.Arn
-            - !GetAtt TowerRole.Arn
             - !Join
               - ","
               - !Ref AccountAdminArns
@@ -375,7 +374,6 @@ Resources:
                 - !GetAtt TowerForgeServiceRole.Arn
                 - !GetAtt TowerForgeBatchHeadJobRole.Arn
                 - !GetAtt TowerForgeBatchWorkJobRole.Arn
-                - !GetAtt TowerRole.Arn
             Action:
               - "s3:GetBucketLocation"
               - "s3:ListBucket"
@@ -513,7 +511,6 @@ Resources:
                 - !GetAtt TowerForgeServiceRole.Arn
                 - !GetAtt TowerForgeBatchHeadJobRole.Arn
                 - !GetAtt TowerForgeBatchWorkJobRole.Arn
-                - !GetAtt TowerRole.Arn
             Action:
               - "s3:GetBucketLocation"
               - "s3:ListBucket"
