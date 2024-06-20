@@ -34,7 +34,7 @@ parameters:
     - khai.do@sagebase.org
   TowerConfigFileName: "tower.yaml"
 
-stack_tags: 
+stack_tags:
   {{stack_group_config.default_stack_tags}}
 
 sceptre_user_data:
