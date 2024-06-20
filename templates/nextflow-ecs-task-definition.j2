@@ -253,7 +253,7 @@ Resources:
               awslogs-group: !Ref TowerTaskLogGroup
               awslogs-stream-prefix: !Ref AwslogsStreamPrefix
       {%- endif %}
-        - Name: !Sub '${MigrateDBContainerName}'
+        - Name: !Ref MigrateDBContainerName
           Image: !Ref MigrateDBContainerImage
           Memory: 2000
           Cpu: 0
@@ -299,7 +299,7 @@ Resources:
             - ContainerName: !Ref RedisContainerName
               Condition: START
       {%- endif %}
-            - ContainerName: !Sub '${MigrateDBContainerName}'
+            - ContainerName: !Ref MigrateDBContainerName
               Condition: SUCCESS
           WorkingDirectory: /work
           EntryPoint:
