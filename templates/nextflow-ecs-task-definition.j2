@@ -189,11 +189,6 @@ Resources:
           EFSVolumeConfiguration:
             FilesystemId: !Ref EfsFileSystemId
       ContainerDefinitions:
-        {%- if sceptre_user_data.EnableRedisDocker is defined and sceptre_user_data.EnableRedisDocker %}
-        - image: !Ref RedisContainerImage
-          repositoryCredentials:
-            credentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'
-        {%- endif %}
         - image: !Ref MigrateDBContainerImage
           repositoryCredentials:
             credentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'
