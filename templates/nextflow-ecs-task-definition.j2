@@ -83,6 +83,15 @@ Parameters:
     Type: String
     Description: Redis container docker image, e.g. 'redis:5.0.8'
 {%- endif %}
+  MigrateDBContainerName:
+    Type: String
+    Description: (Optional) Name of the migrate-db container
+    Default: migrate-db
+  MigrateDBContainerImage:
+    Type: String
+    Description: >
+      (Optional) migrate-db container docker image,
+      e.g. 'cr.seqera.io/private/nf-tower-enterprise/migrate-db:v23.4.3'
   CronContainerName:
     Type: String
     Description: (Optional) Name of the cron container
@@ -180,6 +189,21 @@ Resources:
           EFSVolumeConfiguration:
             FilesystemId: !Ref EfsFileSystemId
       ContainerDefinitions:
+        - image: !Ref RedisContainerImage
+          repositoryCredentials:
+            credentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'
+        - image: !Ref MigrateDBContainerImage
+          repositoryCredentials:
+            credentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'      
+        - image: !Ref FrontendContainerImage
+          repositoryCredentials:
+            credentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'        
+        - image: !Ref BackendContainerImage
+          repositoryCredentials:
+            credentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'
+        - image: !Ref CronContainerImage
+          repositoryCredentials:
+            credentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'
       {%- if sceptre_user_data.EnableRedisDocker is defined and sceptre_user_data.EnableRedisDocker %}
         # The following container definition is a stop-gap solution for
         # https://sagebionetworks.jira.com/browse/WORKFLOWS-521
@@ -229,8 +253,8 @@ Resources:
               awslogs-group: !Ref TowerTaskLogGroup
               awslogs-stream-prefix: !Ref AwslogsStreamPrefix
       {%- endif %}
-        - Name: !Sub '${CronContainerName}-MigrateDb'
-          Image: !Ref CronContainerImage
+        - Name: !Sub '${MigrateDBContainerName}'
+          Image: !Ref MigrateDBContainerImage
           Memory: 2000
           Cpu: 0
           Essential: false
@@ -275,7 +299,7 @@ Resources:
             - ContainerName: !Ref RedisContainerName
               Condition: START
       {%- endif %}
-            - ContainerName: !Sub '${CronContainerName}-MigrateDb'
+            - ContainerName: !Sub '${MigrateDBContainerName}'
               Condition: SUCCESS
           WorkingDirectory: /work
           EntryPoint:
