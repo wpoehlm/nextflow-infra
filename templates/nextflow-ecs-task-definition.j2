@@ -189,18 +189,6 @@ Resources:
           EFSVolumeConfiguration:
             FilesystemId: !Ref EfsFileSystemId
       ContainerDefinitions:
-        - Name: !Ref MigrateDBContainerName
-          Image: !Ref MigrateDBContainerImage
-          RepositoryCredentials:
-            CredentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'
-        - Name: !Ref FrontendContainerName
-          Image: !Ref FrontendContainerImage
-          RepositoryCredentials:
-            CredentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'
-        - Name: !Ref BackendContainerName
-          Image: !Ref BackendContainerImage
-          RepositoryCredentials:
-            CredentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'
       {%- if sceptre_user_data.EnableRedisDocker is defined and sceptre_user_data.EnableRedisDocker %}
         # The following container definition is a stop-gap solution for
         # https://sagebionetworks.jira.com/browse/WORKFLOWS-521
@@ -252,6 +240,8 @@ Resources:
       {%- endif %}
         - Name: !Ref MigrateDBContainerName
           Image: !Ref MigrateDBContainerImage
+          RepositoryCredentials:
+            CredentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'
           Memory: 2000
           Cpu: 0
           Essential: false
@@ -285,6 +275,8 @@ Resources:
               awslogs-stream-prefix: !Ref AwslogsStreamPrefix
         - Name: !Ref CronContainerName
           Image: !Ref CronContainerImage
+          RepositoryCredentials:
+            CredentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'
           Memory: 2000
           Cpu: 0
       {%- if sceptre_user_data.EnableRedisDocker is defined and sceptre_user_data.EnableRedisDocker %}
@@ -326,6 +318,8 @@ Resources:
               awslogs-stream-prefix: !Ref AwslogsStreamPrefix
         - Name: !Ref FrontendContainerName
           Image: !Ref FrontendContainerImage
+          RepositoryCredentials:
+            CredentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'
           Memory: 2000
           Cpu: 0
           Essential: false
@@ -348,6 +342,8 @@ Resources:
           Memory: 2000
           Cpu: 0
           Image: !Ref BackendContainerImage
+          RepositoryCredentials:
+            CredentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'
           PortMappings:
             - ContainerPort: !Ref BackendContainerPort
               HostPort: !Ref BackendHostPort
