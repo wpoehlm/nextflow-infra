@@ -26,7 +26,6 @@ parameters:
   FrontendContainerImage: 'cr.seqera.io/private/nf-tower-enterprise/frontend:{{stack_group_config.tower_version}}'
   BackendContainerImage: 'cr.seqera.io/private/nf-tower-enterprise/backend:{{stack_group_config.tower_version}}'
   MigrateDBContainerImage: 'cr.seqera.io/private/nf-tower-enterprise/migrate-db:{{stack_group_config.tower_version}}'
-  RedisContainerImage: 'cr.seqera.io/public/redis:5.0.8'
   EfsFileSystemId: !stack_output_external nextflow-efs-file-system::FileSystemId
   EfsVolumeMountPath: '/efs'
   TowerUserWorkspace: 'false'
