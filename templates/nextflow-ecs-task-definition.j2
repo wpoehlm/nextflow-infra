@@ -201,10 +201,6 @@ Resources:
           Image: !Ref BackendContainerImage
           RepositoryCredentials:
             CredentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'
-        - Name: !Ref CronContainerName
-          Image: !Ref CronContainerImage
-          RepositoryCredentials:
-            CredentialsParameter: !Sub 'arn:aws:secretsmanager:us-east-1:${AWS::AccountId}:secret:TOWER_DEV_SEQERA_REGISTRY_SECRET'
       {%- if sceptre_user_data.EnableRedisDocker is defined and sceptre_user_data.EnableRedisDocker %}
         # The following container definition is a stop-gap solution for
         # https://sagebionetworks.jira.com/browse/WORKFLOWS-521
