@@ -183,7 +183,7 @@ Resources:
   TowerTask:
     Type: AWS::ECS::TaskDefinition
     Properties:
-      ExecutionRoleArn: !Sub 'arn:aws:iam::${AWS::AccountId}:role/EcsTaskExecutionRole'
+      executionRoleArn: !Sub 'arn:aws:iam::${AWS::AccountId}:role/EcsTaskExecutionRole'
       NetworkMode: bridge
       Volumes:
         - Name: !Ref EfsVolumeName
