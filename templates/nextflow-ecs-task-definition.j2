@@ -180,6 +180,21 @@ Resources:
       LogGroupName: '/aws/ecs/task/nf-tower'
       RetentionInDays: 30
 
+  EcsTaskExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: EcsTaskExecutionRole
+      AssumeRolePolicyDocument:
+        Version:  '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+        - arn:aws:iam::aws:policy/SecretsManagerReadWrite
+
   TowerTask:
     Type: AWS::ECS::TaskDefinition
     Properties:
