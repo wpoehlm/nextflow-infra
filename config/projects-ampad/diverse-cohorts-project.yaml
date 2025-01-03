@@ -22,5 +22,6 @@ parameters:
 
 stack_tags:
   Department: NDR
-  Project: diverse-cohorts
+  Project: diverse-cohorts-project
   OwnerEmail: beatriz.saldana@sagebase.org
+  CostCenter: AMP 2.0 Diverse Cohorts AD Portal / 102300
